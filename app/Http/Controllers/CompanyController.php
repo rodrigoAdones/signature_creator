@@ -19,7 +19,9 @@ class CompanyController extends Controller
 
     public function create(){
     	//
-    	return view('company.create');
+        $companies = Company::all();
+
+    	return view('company.create',compact('companies'));
     }
 
     public function save(Request $request){
@@ -39,7 +41,15 @@ class CompanyController extends Controller
 
         	$company->save();
 
-        	return view('company.create');
+        	//return view('company.create');
+            return back();
         }
+    }
+
+    public function employees($slug,$id)
+    {
+        $company = Company::find($id);
+
+        return view('company.employees',compact('company'));
     }
 }
