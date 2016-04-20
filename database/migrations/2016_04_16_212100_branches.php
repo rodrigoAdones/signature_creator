@@ -16,6 +16,7 @@ class Branches extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('address');
+            $table->string('city');
             $table->string('phone1');
             $table->string('phone2');
             $table->string('type');

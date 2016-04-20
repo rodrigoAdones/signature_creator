@@ -41,4 +41,6 @@ Route::get('/pruebaImagen', function()
 Route::get('/company/create',['as'=>'create-company','uses'=>'CompanyController@create']);
 Route::post('/company/create',['as'=>'save-company','uses'=>'CompanyController@save']);
 
-Route::get('/company/employee/{slug}/{id}',['as'=>'list-of-employees','uses'=>'CompanyController@employees']);
+Route::get('/company/employees/{slug}/{id}',['as'=>'list-of-employees','uses'=>'CompanyController@employees']);
+
+Route::get('/company/branches/{slug}/{id}',['as'=>'list-of-branch','uses'=>'CompanyController@branches']);

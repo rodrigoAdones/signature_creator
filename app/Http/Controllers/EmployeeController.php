@@ -8,5 +8,7 @@ use App\Http\Requests;
 
 class EmployeeController extends Controller
 {
-    //
+    public function store(Request $request){
+    	//
+    }
 }

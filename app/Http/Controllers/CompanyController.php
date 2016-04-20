@@ -52,4 +52,10 @@ class CompanyController extends Controller
 
         return view('company.employees',compact('company'));
     }
+
+    public function branches($slug,$id){
+        $company = Company::find($id);
+
+        return view('company.branches',compact('company'));
+    }
 }

@@ -2,24 +2,25 @@
 
 @section('content')
 
-<h2>Empleados de {{$company->name}}</h2>
+<h2>Sucursales de {{$company->name}}</h2>
 
 <h3>
-	<a href="" class="btn btn-success" id="btnAdd">+ Empleado</a>
+	<a href="" class="btn btn-success" id="btnAdd">+ Sucursal</a>
 </h3>
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Lista Empleados</h3>
+    <h3 class="panel-title">Lista Sucursales</h3>
   </div>
   <div class="panel-body">
     <table class="table table-hover">
       <thead>
         <th>Nombre</th>
-        <th>Departamanto/Area</th>
-        <th>Cargo</th>
-        <th>Anexo</th>
-        <th>Email</th>
+        <th>Tipo</th>
+        <th>Direccion</th>
+        <th>Ciudad</th>
+        <th>Telefono 1</th>
+        <th>Telefono 2</th>
         <th></th>
       </thead>
       <tbody>
