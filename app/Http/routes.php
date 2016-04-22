@@ -39,8 +39,13 @@ Route::get('/pruebaImagen', function()
 });
 
 Route::get('/company/create',['as'=>'create-company','uses'=>'CompanyController@create']);
-Route::post('/company/create',['as'=>'save-company','uses'=>'CompanyController@save']);
+Route::post('/company/create',['as'=>'save-company','uses'=>'CompanyController@store']);
 
 Route::get('/company/employees/{slug}/{id}',['as'=>'list-of-employees','uses'=>'CompanyController@employees']);
+Route::post('add/employee',['as'=>'save-employee','uses'=>'EmployeeController@store']);
 
-Route::get('/company/branches/{slug}/{id}',['as'=>'list-of-branch','uses'=>'CompanyController@branches']);
+Route::get('/company/branches/{slug}/{id}',['as'=>'list-of-branches','uses'=>'CompanyController@branches']);
+Route::post('add/branch',['as'=>'save-branch','uses'=>'BranchController@store']);
+
+Route::get('company/edit/employee/{id}',['as'=>'edit-employee','uses'=>'EmployeeController@edit']);
+Route::post('company/edit/employee/{id}',['as'=>'update-employee','uses'=>'EmployeeController@update']);

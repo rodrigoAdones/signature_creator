@@ -9,6 +9,7 @@ use App\Http\Requests;
 use EasySlug\EasySlug\EasySlugFacade as EasySlug;
 
 use App\Company;
+use App\Branch;
 
 class CompanyController extends Controller
 {
@@ -24,7 +25,7 @@ class CompanyController extends Controller
     	return view('company.create',compact('companies'));
     }
 
-    public function save(Request $request){
+    public function store(Request $request){
     	$input = $request->only(['name']);
 
     	$input['alias'] = EasySlug::generateSlug($input['name'], $separator = '-');
@@ -40,6 +41,20 @@ class CompanyController extends Controller
         	$company = new Company($input);
 
         	$company->save();
+
+            $defaultBranchData = [
+                'name'      =>  'Casa Matriz',
+                'address'   =>  'Adress Default',
+                'city'      =>  'City Default',
+                'phone1'    =>  '0',
+                'phone2'    =>  '0',
+                'type'      =>  'Principal',
+                'company_id'=>  $company->id
+            ];
+
+            $branch = new Branch($defaultBranchData);
+
+            $branch->save();
 
         	//return view('company.create');
             return back();

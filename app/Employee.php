@@ -15,4 +15,11 @@ class Employee extends Model
         'company_id',
         'branch_id'
     ];
+
+    public function branch(){
+    	return $this->belongsTo('App\Branch');
+    }
+    public function company(){
+    	return $this->belongsTo('App\Company');
+    }
 }

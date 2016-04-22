@@ -19,7 +19,7 @@ class Branches extends Migration
             $table->string('city');
             $table->string('phone1');
             $table->string('phone2');
-            $table->string('type');
+            $table->string('type')->default('Sucursal');
             $table->integer('company_id')->unsigned();
             $table->timestamps();
 
