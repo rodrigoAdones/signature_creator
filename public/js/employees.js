@@ -6,6 +6,8 @@ $(document).ready(function() {
 
 	editEmployee();
 
+	imageEmployee();
+
 });
 
 var modalAddEmployee = function(){
@@ -38,7 +40,7 @@ var saveEmployee = function(){
 				fila = fila.replace(":ANNEX",response.annex);
 				fila = fila.replace(":EMAIL",response.email);
 				fila = fila.replace(":BRANCH",response.branch);
-				fila = fila.replace(":ID",response.id);
+				fila = fila.replace(/:ID/g,response.id);
 
 				$("#allEmployees tbody").append(fila);
 
@@ -63,5 +65,25 @@ var editEmployee = function(){
 		ruta = ruta.replace(":ID",id);
 
 		location.href=ruta;
+	});
+}
+
+var imageEmployee = function(){
+	$("#allEmployees tbody").on("click","tr th .imageEmployee",function(e){
+		e.preventDefault();
+		id = $(this).data("id");
+
+		ruta = $("#rutaImage").val();
+
+		ruta = ruta.replace(":ID",id);
+
+		var data = "<img src='"+ruta+"' alt='Imagen Firma'/>";
+
+		$("#routeToCopy").val(data);
+
+		//window.open(ruta);
+
+		$("#imageModal").modal('show');
+		$("#imageOfSign").html(data);
 	});
 }

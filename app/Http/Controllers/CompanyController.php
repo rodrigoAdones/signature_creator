@@ -8,6 +8,10 @@ use App\Http\Requests;
 
 use EasySlug\EasySlug\EasySlugFacade as EasySlug;
 
+use Storage;
+
+use Image;
+
 use App\Company;
 use App\Branch;
 
@@ -72,5 +76,30 @@ class CompanyController extends Controller
         $company = Company::find($id);
 
         return view('company.branches',compact('company'));
+    }
+
+    public function image($slug,$id){
+        $company = Company::find($id);
+
+        $file = $company->alias."/background.jpg";
+
+        $img = Storage::exists($file);
+
+        return view("company.image",compact('img','company'));
+    }
+
+    public function returnBackground($id){
+        $company = Company::find($id);
+        $img = Image::make('images/'.$company->alias.'/background.jpg')->resize(400, 150);
+
+        $img->text('background example', 200, 100, function($font) {
+            $font->file('fonts/GOODTIME.TTF');
+            $font->size(15);
+            $font->color('#ff0000');
+            $font->align('center');
+            //$font->valign('top');
+            $font->angle(15);
+        });
+        return $img->response('jpg');
     }
 }

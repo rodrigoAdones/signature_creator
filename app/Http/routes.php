@@ -38,14 +38,31 @@ Route::get('/pruebaImagen', function()
     return $img->response('jpg');
 });
 
+//ver empresas
 Route::get('/company/create',['as'=>'create-company','uses'=>'CompanyController@create']);
 Route::post('/company/create',['as'=>'save-company','uses'=>'CompanyController@store']);
 
+//ver y crear empleados
 Route::get('/company/employees/{slug}/{id}',['as'=>'list-of-employees','uses'=>'CompanyController@employees']);
 Route::post('add/employee',['as'=>'save-employee','uses'=>'EmployeeController@store']);
 
+//ver y crear sucursales
 Route::get('/company/branches/{slug}/{id}',['as'=>'list-of-branches','uses'=>'CompanyController@branches']);
 Route::post('add/branch',['as'=>'save-branch','uses'=>'BranchController@store']);
 
+//editar empleado
 Route::get('company/edit/employee/{id}',['as'=>'edit-employee','uses'=>'EmployeeController@edit']);
 Route::post('company/edit/employee/{id}',['as'=>'update-employee','uses'=>'EmployeeController@update']);
+
+//imagen empresa
+Route::get('company/image/{slug}/{id}',['as'=>'image','uses'=>'CompanyController@image']);
+Route::post('upload/image/{id}',['as'=>'upload-image','uses'=>'StorageController@image']);
+//mostrar el background cargado
+Route::get('company/show/image/{id}',['as'=>'show-background','uses'=>'CompanyController@returnBackground']);
+//firma para empleado
+Route::get('company/sign/employee/{id}',['as'=>'image-employee','uses'=>'EmployeeController@showSign']);
+
+//Subir
+
+Route::get('storage',['as'=>'storage','uses'=>'StorageController@upload_form']);
+Route::post('storage',['as'=>'upload-file','uses'=>'StorageController@upload']);

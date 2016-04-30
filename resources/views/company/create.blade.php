@@ -37,7 +37,7 @@
           <th>
             <a href="{{ route('list-of-employees',[$company->alias,$company->id])}}" class="btn btn-primary">Empleados</a>
             <a href="{{ route('list-of-branches',[$company->alias,$company->id])}}" class="btn btn-warning">Sucursales</a>
-            <a href="" class="btn btn-success">Imagen</a>
+            <a href="{{ route('image',[$company->alias,$company->id])}}" class="btn btn-success">Imagen</a>
           </th>
         </tr>
         @endforeach

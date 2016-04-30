@@ -1,6 +1,79 @@
 @extends('layout')
 
 @section('content')
+<div class="modal fade" tabindex="-1" role="dialog" id="modalEmployee">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Agregar Empleado</h4>
+      </div>
+      <div class="modal-body">
+        <div class="panel panel-default">
+          <div class="panel-body">
+          {!! Form::open(array('id'=>'formEmployee','route' => ['save-employee'],'method'=>'POST')) !!}
+            {!! Form::hidden('company_id',$company->id,array('id'=>'company_id')); !!}
+          <h4 class="row">
+            {!! Form::label('name', 'Nombre',array('class' => 'label label-default col-md-4')); !!}
+            {!! Form::text('name',null,array('id'=>'name','class'=>'col-md-4 campoIngreso')); !!}
+          </h4>
+          <h4 class="row">
+            {!! Form::label('department', 'Area/Departamento',array('class' => 'label label-default col-md-4')); !!}
+            {!! Form::text('department',null,array('id'=>'department','class'=>'col-md-4 campoIngreso')); !!}
+          </h4>
+          <h4 class="row">
+            {!! Form::label('position', 'Cargo',array('class' => 'label label-default col-md-4')); !!}
+            {!! Form::text('position',null,array('id'=>'position','class'=>'col-md-4 campoIngreso')); !!}
+          </h4>
+          <h4 class="row">
+            {!! Form::label('annex', 'Anexo Telefonico',array('class' => 'label label-default col-md-4')); !!}
+            {!! Form::text('annex',null,array('id'=>'annex','class'=>'col-md-4 campoIngreso')); !!}
+          </h4>
+          <h4 class="row">
+            {!! Form::label('email', 'Email',array('class' => 'label label-default col-md-4')); !!}
+            {!! Form::email('email',null,array('id'=>'email','class'=>'col-md-4 campoIngreso')); !!}
+          </h4>
+          <h4 class="row">
+            {!! Form::label('branch_id', 'Sucursal',array('class' => 'label label-default col-md-4')); !!}
+            <select name="branch_id" id="branch_id" class="col-md-4">
+              <option value=""></option>
+              @foreach($company->branches as $branch)
+              <option value="{{$branch->id}}">{{$branch->name}}</option>
+              @endforeach
+            </select>
+          </h4>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btnSave">Guardar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+      {!! Form::close() !!}
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="imageModal" tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Firma</h4>
+      </div>
+      <div class="modal-body">
+        <div id="imageOfSign"></div>
+        <div class="row">
+          <p>Ruta</p>
+          <input type="text" readonly class="col-md-12" id="routeToCopy">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <h2>Empleados de {{$company->name}}</h2>
 
@@ -14,6 +87,7 @@
   </div>
   <div class="panel-body">
   	<input type="hidden" id="rutaEdicion" value="{{ route('edit-employee',':ID')}}">
+    <input type="hidden" id="rutaImage" value="{{ route('image-employee',':ID')}}">
     <table class="table table-hover" id="allEmployees">
       <thead>
       	<tr>
@@ -37,8 +111,11 @@
           <th>{{$employee->branch->name}}</th>
           <th>
           	<a href="" class="btn btn-success editEmployee" data-id="{{$employee->id}}">
-        		Editar
-        	</a>
+        		  Editar
+        	  </a>
+            <a href="" class="btn btn-primary imageEmployee" data-id="{{$employee->id}}">
+              Ver Firma
+            </a>
           </th>
         </tr>
         @endforeach
@@ -46,59 +123,6 @@
     </table>
   </div>
 </div>
-
-<div class="modal fade" tabindex="-1" role="dialog" id="modalEmployee">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Agregar Empleado</h4>
-      </div>
-      <div class="modal-body">
-      	<div class="panel panel-default">
-      		<div class="panel-body">
-	        {!! Form::open(array('id'=>'formEmployee','route' => ['save-employee'],'method'=>'POST')) !!}
-	        	{!! Form::hidden('company_id',$company->id,array('id'=>'company_id')); !!}
-	        <h4 class="row">
-	        	{!! Form::label('name', 'Nombre',array('class' => 'label label-default col-md-4')); !!}
-	        	{!! Form::text('name',null,array('id'=>'name','class'=>'col-md-4 campoIngreso')); !!}
-	        </h4>
-	        <h4 class="row">
-	        	{!! Form::label('department', 'Area/Departamento',array('class' => 'label label-default col-md-4')); !!}
-	        	{!! Form::text('department',null,array('id'=>'department','class'=>'col-md-4 campoIngreso')); !!}
-	        </h4>
-	        <h4 class="row">
-	        	{!! Form::label('position', 'Cargo',array('class' => 'label label-default col-md-4')); !!}
-	        	{!! Form::text('position',null,array('id'=>'position','class'=>'col-md-4 campoIngreso')); !!}
-	        </h4>
-	        <h4 class="row">
-	        	{!! Form::label('annex', 'Anexo Telefonico',array('class' => 'label label-default col-md-4')); !!}
-	        	{!! Form::text('annex',null,array('id'=>'annex','class'=>'col-md-4 campoIngreso')); !!}
-	        </h4>
-	        <h4 class="row">
-	        	{!! Form::label('email', 'Email',array('class' => 'label label-default col-md-4')); !!}
-	        	{!! Form::email('email',null,array('id'=>'email','class'=>'col-md-4 campoIngreso')); !!}
-	        </h4>
-	        <h4 class="row">
-	        	{!! Form::label('branch_id', 'Sucursal',array('class' => 'label label-default col-md-4')); !!}
-	        	<select name="branch_id" id="branch_id" class="col-md-4">
-	        		<option value=""></option>
-	        		@foreach($company->branches as $branch)
-	        		<option value="{{$branch->id}}">{{$branch->name}}</option>
-	        		@endforeach
-	        	</select>
-	        </h4>
-      		</div>
-      	</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="btnSave">Guardar</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
-      {!! Form::close() !!}
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
 <template id="rowEmployee">
 	<tr>
@@ -112,6 +136,9 @@
         	<a href="" data-id=":ID" class="btn btn-success editEmployee">
         		Editar
         	</a>
+          <a href="" class="btn btn-primary imageEmployee" data-id=":ID">
+              Ver Firma
+            </a>
         </th>
   	</tr>
 </template>
