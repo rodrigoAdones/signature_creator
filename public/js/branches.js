@@ -4,12 +4,14 @@ $(document).ready(function() {
 
 	saveBranch();
 
+	editBranch();
+
 });
 
 var modalAddBranch = function(){
 	$("#btnAdd").on("click",function(e){
 		e.preventDefault();
-		
+
 		//$('#modalEmployee').modal('show');
 
 		$('#modalBranch').modal('show');
@@ -49,5 +51,21 @@ var saveBranch = function(){
 		},'json').fail(function(){
 			alert("Ocurrio un error al intentar guardar la informacion");
 		});
+	});
+};
+
+var editBranch = function(){
+	$(".editBranch").on("click",function(event){
+		event.preventDefault();
+		id = $(this).data('id');
+		slug = $(this).data('companySlug');
+
+		route = $("#edit-route").val();
+
+		route = route.replace(':SLUG',slug);
+		route = route.replace(':ID',id);
+		console.log(route);
+
+		location.href=route;
 	});
 };

@@ -49,6 +49,8 @@ Route::post('add/employee',['as'=>'save-employee','uses'=>'EmployeeController@st
 //ver y crear sucursales
 Route::get('/company/branches/{slug}/{id}',['as'=>'list-of-branches','uses'=>'CompanyController@branches']);
 Route::post('add/branch',['as'=>'save-branch','uses'=>'BranchController@store']);
+Route::get('/company/branches/{slug}/edit/{id}',['as'=>'edit-branch','uses'=>'BranchController@edit']);
+Route::post('/edit/branch/{id}',['as'=>'update-branch','uses'=>'BranchController@update']);
 
 //editar empleado
 Route::get('company/edit/employee/{id}',['as'=>'edit-employee','uses'=>'EmployeeController@edit']);

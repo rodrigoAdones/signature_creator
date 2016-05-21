@@ -41,4 +41,14 @@ class BranchController extends Controller
 
         return response()->json(compact('respuesta','mensaje'));
     }
+
+    public function edit($slug,$id){
+      $branch = Branch::find($id);
+
+      return view('branch.edit',compact('branch'));
+    }
+
+    public function update(Request $request, $id){
+      $branch = Branch::find($id);
+    }
 }

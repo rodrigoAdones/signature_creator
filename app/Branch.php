@@ -9,4 +9,8 @@ class Branch extends Model
     protected $fillable = [
         'name', 'address','city', 'phone1','phone2','type','company_id'
     ];
+
+    public function company(){
+    	return $this->belongsTo('App\Company');
+    }
 }

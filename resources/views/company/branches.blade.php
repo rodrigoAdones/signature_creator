@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+<input type="hidden" name="edit-route" id="edit-route" value="{{route('edit-branch',[':SLUG',':ID'])}}">
 
 <h2>Sucursales de {{$company->name}}</h2>
 
@@ -34,7 +35,11 @@
           <th>{{$branch->city}}</th>
           <th>{{$branch->phone1}}</th>
           <th>{{$branch->phone2}}</th>
-          <th></th>
+          <th>
+						<a href="" class="btn btn-success editBranch" data-id="{{$branch->id}}" data-company-slug="{{$company->alias}}">
+        		  Editar
+        	  </a>
+          </th>
         </tr>
         @endforeach
       </tbody>
@@ -74,7 +79,7 @@
 	        	{!! Form::label('phone2', 'Telefono 2',array('class' => 'label label-default col-md-2')); !!}
 	        	{!! Form::text('phone2',null,array('id'=>'phone2','class'=>'col-md-4 campoIngreso')); !!}
 	        </h4>
-      			
+
       		</div>
       	</div>
       </div>
